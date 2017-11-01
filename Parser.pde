@@ -28,11 +28,11 @@
         String name = row.getString("Party");
         String highlight = row.getString("Highlight");
     
-    println(name + " (" + species + ") has an ID of " + id + " " + highlight);
+  //  println(name + " (" + species + ") has an ID of " + id + " " + highlight);
     
   }
   
-  println("Candidate: " + table.getString(6, "Candidate"));
+//  println("Candidate: " + table.getString(6, "Candidate"));
    }
    
    public Table getData() {

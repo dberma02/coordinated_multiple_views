@@ -8,7 +8,7 @@
  static int START_MONTH_COL = 4;
  
  class LineGraph {
-  private int chartX, chartY;
+  private float chartX, chartY, leftX, topY;
   private float chartWidth, chartHeight;
   private float offset;
   private ArrayList<Candidate> candidates;
@@ -25,14 +25,20 @@
 
     
     chartX = xPos;
+    leftX = chartX + offset;
+    topY = yPos + offset;
     chartY = yPos;
+
     chartWidth = canvasWidth - offset*2;
     chartHeight = canvasHeight - offset*2.5;
   //  this.candidates = candidates;
     this.table = table;
     
-    pointDist = chartWidth/(table.getRowCount()*2+1);    
+    pointDist = (chartWidth/NUM_MONTHS)/2;
+    println("chartWidth: ", chartWidth, "rowCount: ", table.getRowCount(),
+            "pointDist: ", pointDist);
     chartBottom = yPos + chartHeight + offset;
+    
     
     // set max value of data
     for (TableRow row : table.rows()) {
@@ -49,6 +55,7 @@
     drawSeparators();
     drawData();
 
+
   }
   
   private void drawAxes() {
@@ -60,8 +67,8 @@
   private void drawSeparators() {
     int numMonths = NUM_MONTHS;
     
-    println(chartWidth);
-    println(pointDist);
+//    println(chartWidth);
+//    println(pointDist);
     float firstX = chartX + offset + pointDist*2;
     
     for (int i = 0; i < numMonths; i++) {
