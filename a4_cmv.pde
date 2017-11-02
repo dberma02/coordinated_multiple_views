@@ -72,6 +72,7 @@
      lineGraph = new LineGraph(10, 20, 525, 325, masterTable);
      lineGraph.render();
      pie = new Pie(masterTable, "Sep", .45*395, new PVector(545 + .5*(395), (60 + (.4*395))));
-     highlightList.addAll(pie.drawChart());
+     pie.drawChart();
+   //  highlightList.addAll(pie.drawChart());
  }
  
