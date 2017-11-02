@@ -15,6 +15,8 @@
   private float chartBottom;
   private float pointDist;
   private Table table;
+  ArrayList<Integer> hiList = new ArrayList<Integer>();
+
   
   private float maxValue = 0;
    
@@ -49,10 +51,10 @@
   }
  
   
-  public void render() {
+  public ArrayList<Integer> render() {
     drawAxes();
     drawSeparators();
-    drawData();
+    return drawData();
 
 
   }
@@ -114,18 +116,22 @@
   }
   
   
-  private void drawData() {
+  private ArrayList<Integer> drawData() {
+    hiList.clear();
     for (TableRow row : table.rows()) {
-      boolean hlight = false;
-      hlight = drawCandidate(row, 0);
-      if (hlight == true) {
+      if ( drawCandidate(row, 0) ) {
+       hiList.add(row.getInt("ID"));
        drawCandidate(row, #ff0000);
       }
+
       //highlight_row(row)
       //return ArrayList with rowID
     }
-    
-
+    //second for loop so highlighted lines are drawn on top of others 
+    for (TableRow row : table.matchRows("true","Highlight")) {
+       drawCandidate(row, #ff0000);
+    }
+    return hiList;
   }
   
   

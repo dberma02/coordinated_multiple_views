@@ -49,41 +49,29 @@ public class Pie {
    }
   }
   
-  //pie displays data for whatever month / state is selected --> should just draw all rows in table!
+  //While drawing, will check if mouse over any of the slices (i.e. to be highlighted).
+  //If mouse over a slice, add's ID of that slice's row to the list hiList. Returns hiList.
+  //Clears hiList at beginning of function re setting it so that it is based only on current location of
+  //mouse
   public ArrayList<Integer> drawChart() {
-  //commented out below b/c not resizable  
-  //  r = min(width, height) * 0.4;
-  //  center = new PVector(width / 2, height / 2);
     hiList.clear();
 
     if (!isPie) {
       donutR = bigR * 0.75;
     }
-    float dStart = 0;
-    float dEnd;
-    float rStart = 0;
-    float rEnd;
-    float oStart = 0;
-    float oEnd;
     float start = 0;
-    float end;
     
     
     stroke(0);
     strokeWeight(1);   
-    rStart = start;
     start = drawChunk(start, bigR, "Republican", repC);
-    rEnd = start;
-    dStart = start;
     start = drawChunk(start, bigR, "Democrat", demC);
-    dEnd = start;
-    oStart = start;
     start = drawChunk(start, bigR, "Other", othC);
-    oEnd = start;
-    return hiList; //<>// //<>//
-  } //<>//
+    return hiList; 
+  }
   
-  //make function to draw slice, (basically just calls arc???)
+  //Draws single slice (probably didn't have to be own function)
+  //Returns end angle.
   private float drawSlice(float start, float end, float rad) {
       arc(center.x, center.y,
       rad * 2,
@@ -92,9 +80,11 @@ public class Pie {
       end, PIE);
       noFill();
       return end;
-  }
+  } //<>//
   
-  //returns end angleh
+  //Used so that we can draw each party a different color.
+  //Returns the end angle of last slice in the chunk, (will be used as
+  //start angle in next chunk)
   private float drawChunk(float start, float rad, String party, color c) {
     float end = 0;    
     for (TableRow row : table.matchRows(party, "Party")) {
@@ -157,7 +147,6 @@ public class Pie {
     } else if(quadrant() == 4) {
        angle = 2*PI - angle;
     }
-    
     
     return hypotenuse <= bigR &&
            hypotenuse >= donutR / 2 &&

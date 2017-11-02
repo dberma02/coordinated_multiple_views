@@ -78,7 +78,7 @@
      newHighlights.clear();
      
      lineGraph = new LineGraph(10, 20, 525, 325, currentTable);
-     lineGraph.render();
+     newHighlights.addAll(lineGraph.render());
      
      pie = new Pie(currentTable, "Sep", .45*395, new PVector(545 + .5*(395), (60 + (.4*395))));
      newHighlights.addAll(pie.drawChart());
