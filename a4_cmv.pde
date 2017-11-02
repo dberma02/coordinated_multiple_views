@@ -11,6 +11,7 @@
  
  Parser parser;
  Table masterTable;
+ Table currentTable;
  ArrayList<Candidate> candidates;
  LineGraph lineGraph;
  Map map;
@@ -22,6 +23,11 @@
 
    parser = new Parser("candidates.csv");
    masterTable = parser.getData();
+   masterTable.addColumn("Highlight");
+     for (TableRow row : masterTable.rows()) {
+       row.setString("Highlight", "false");
+     }
+   currentTable = masterTable;
 //   candidates = parser.getData();
    
    lineGraph = new LineGraph(10, 20, 525, 325, masterTable);
@@ -47,12 +53,25 @@
    rect(10, 360, 525,325);
    rect(545,20, 395, 660);
    
-   lineGraph.render();
   // map.render();
   
-  pie = new Pie(masterTable, "Jan", .45*395, new PVector(545 + .5*(395), (60 + (.4*395))));
-  pie.drawChart();
+  //figure out highlighting here
+  //have a current highlight list
+  //set all in the list to highlight
+  //feed the list to the graphs
+    //graphs will return new hightlight list--each one can be the last one appended to eachother
+    //then at end, unhighlight old list, rehighlight new one
+  
+  highlight();
+
    
  }
  
+ private void highlight() {
+     ArrayList<Integer> highlightList = new ArrayList<Integer>();
+     lineGraph = new LineGraph(10, 20, 525, 325, masterTable);
+     lineGraph.render();
+     pie = new Pie(masterTable, "Sep", .45*395, new PVector(545 + .5*(395), (60 + (.4*395))));
+     highlightList.addAll(pie.drawChart());
+ }
  

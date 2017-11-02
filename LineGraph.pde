@@ -35,8 +35,8 @@
     this.table = table;
     
     pointDist = (chartWidth/NUM_MONTHS)/2;
-    println("chartWidth: ", chartWidth, "rowCount: ", table.getRowCount(),
-            "pointDist: ", pointDist);
+    //println("chartWidth: ", chartWidth, "rowCount: ", table.getRowCount(),
+    //        "pointDist: ", pointDist);
     chartBottom = yPos + chartHeight + offset;
     
     
@@ -67,8 +67,6 @@
   private void drawSeparators() {
     int numMonths = NUM_MONTHS;
     
-//    println(chartWidth);
-//    println(pointDist);
     float firstX = chartX + offset + pointDist*2;
     
     for (int i = 0; i < numMonths; i++) {

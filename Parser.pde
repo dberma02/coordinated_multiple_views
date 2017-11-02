@@ -15,22 +15,22 @@
    public Parser(String file) {
    //  lines = loadStrings(file);
      table = loadTable(file, "header");
-     table.addColumn("Highlight");
+     //table.addColumn("Highlight");
      
-     for (TableRow row : table.rows()) {
-       row.setString("Highlight", "false");
-     }
+     //for (TableRow row : table.rows()) {
+     //  row.setString("Highlight", "false");
+     //}
 
-    for (TableRow row : table.rows()) {
+  //  for (TableRow row : table.rows()) {
     
-        String id = row.getString("Candidate");
-        String species = row.getString("State");
-        String name = row.getString("Party");
-        String highlight = row.getString("Highlight");
+  //      String id = row.getString("Candidate");
+  //      String species = row.getString("State");
+  //      String name = row.getString("Party");
+  //      String highlight = row.getString("Highlight");
     
-  //  println(name + " (" + species + ") has an ID of " + id + " " + highlight);
+  ////  println(name + " (" + species + ") has an ID of " + id + " " + highlight);
     
-  }
+  //}
   
 //  println("Candidate: " + table.getString(6, "Candidate"));
    }
