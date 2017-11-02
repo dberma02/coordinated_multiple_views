@@ -38,7 +38,7 @@
 //   candidates = parser.getData();
    
    lineGraph = new LineGraph(10, 20, 525, 325, masterTable);
-  // map = new Map (10, 360, 525,325, masterTable);
+   map = new Map (10, 360, 525,325, masterTable);
   //   rect(545,20, 395, 660);
    pie = new Pie(masterTable, "Sep", .45*395, new PVector(545 + .5*(395), (20 + (.45*395) + 20))); 
   
@@ -60,7 +60,7 @@
    rect(10, 360, 525,325);
    rect(545,20, 395, 660);
    
-  // map.render();
+   map.render();
   
   //figure out highlighting here
   //have a current highlight list
@@ -79,6 +79,7 @@
      
      lineGraph = new LineGraph(10, 20, 525, 325, currentTable);
      lineGraph.render();
+     
      pie = new Pie(currentTable, "Sep", .45*395, new PVector(545 + .5*(395), (60 + (.4*395))));
      newHighlights.addAll(pie.drawChart());
      
@@ -91,7 +92,6 @@
        currentTable.setString(i,"Highlight", "true");
      }
      highlights.addAll(newHighlights);
-     
      
  }
  

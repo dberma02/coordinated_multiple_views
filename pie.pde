@@ -81,7 +81,7 @@ public class Pie {
     start = drawChunk(start, bigR, "Other", othC);
     oEnd = start;
     return hiList; //<>// //<>//
-  }
+  } //<>//
   
   //make function to draw slice, (basically just calls arc???)
   private float drawSlice(float start, float end, float rad) {
@@ -94,7 +94,7 @@ public class Pie {
       return end;
   }
   
-  //returns end angle
+  //returns end angleh
   private float drawChunk(float start, float rad, String party, color c) {
     float end = 0;    
     for (TableRow row : table.matchRows(party, "Party")) {
