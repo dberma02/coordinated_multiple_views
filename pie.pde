@@ -14,6 +14,7 @@ public class Pie {
   color repC = color(200, 10, 3);
   color demC = color(5, 100, 230);
   color othC = color(60, 179, 113);
+  ArrayList<Integer> hiList = new ArrayList<Integer>();
   
   Pie(Table table, String endMonth, float rad, PVector center) {
 
@@ -49,10 +50,11 @@ public class Pie {
   }
   
   //pie displays data for whatever month / state is selected --> should just draw all rows in table!
-  void drawChart() {
+  public ArrayList<Integer> drawChart() {
   //commented out below b/c not resizable  
   //  r = min(width, height) * 0.4;
   //  center = new PVector(width / 2, height / 2);
+    hiList.clear();
 
     if (!isPie) {
       donutR = bigR * 0.75;
@@ -78,11 +80,8 @@ public class Pie {
     oStart = start;
     start = drawChunk(start, bigR, "Other", othC);
     oEnd = start;
-
-    //drawSlice(rStart, rEnd, smallR);
-
-    //smallPie //<>// //<>//
-  }
+    return hiList; //<>// //<>//
+  } //<>//
   
   //make function to draw slice, (basically just calls arc???)
   private float drawSlice(float start, float end, float rad) {
@@ -95,13 +94,16 @@ public class Pie {
       return end;
   }
   
-  //returns end angle
+  //returns end angleh
   private float drawChunk(float start, float rad, String party, color c) {
-    float end = 0;
-    
+    float end = 0;    
     for (TableRow row : table.matchRows(party, "Party")) {
       end = start + row.getFloat(endMonth) * 2 * PI / this.total;
       if (highlight(start, end, rad)) {
+        hiList.add(row.getInt("ID"));
+      }
+      
+      if (row.getString("Highlight").equals("true")) {
         drawLabel(row.getString("Candidate"), row.getString(endMonth));
         float red = red(c);
         float green = green(c);

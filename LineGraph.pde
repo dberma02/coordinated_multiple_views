@@ -8,7 +8,7 @@
  static int START_MONTH_COL = 4;
  
  class LineGraph {
-  private float chartX, chartY, leftX, topY;
+  private float chartX, chartY;
   private float chartWidth, chartHeight;
   private float offset;
   private ArrayList<Candidate> candidates;
@@ -25,8 +25,7 @@
 
     
     chartX = xPos;
-    leftX = chartX + offset;
-    topY = yPos + offset;
+  //  topY = yPos + offset;
     chartY = yPos;
 
     chartWidth = canvasWidth - offset*2;
