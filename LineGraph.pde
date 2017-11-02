@@ -75,25 +75,54 @@
     stroke(0);
   }
   
-  private void drawData() {
-    
-    for (TableRow row : table.rows()) {
-      int index = 0;
-      for (int i = START_MONTH_COL; i < START_MONTH_COL + NUM_MONTHS-1; i++) {
-        float leftPointX = chartX + offset + pointDist*.5 + pointDist*2*index;
-        float leftPointY = chartBottom - (row.getFloat(i) * chartHeight/maxValue);
-        
-        float rightPointX = chartX + offset + pointDist*.5 + pointDist*2*(index+1);
-        float rightPointY = chartBottom - (row.getFloat(i+1) * chartHeight/maxValue); 
+  private boolean highlight(float x, float y, float r) {
+    if(dist(x, y, mouseX, mouseY) < r) {
+      return true;
+    } else {
+      return false; 
+    }
+  }
+  
+  private boolean drawCandidate(TableRow row, color c) {
+    boolean hlight = false;
+    fill(c);
+    stroke(c);
+    int index = 0;
+    for (int i = START_MONTH_COL; i < START_MONTH_COL + NUM_MONTHS-1; i++) {
+      float leftPointX = chartX + offset + pointDist*.5 + pointDist*2*index;
+      float leftPointY = chartBottom - (row.getFloat(i) * chartHeight/maxValue);
+      float rightPointX = chartX + offset + pointDist*.5 + pointDist*2*(index+1);
+      float rightPointY = chartBottom - (row.getFloat(i+1) * chartHeight/maxValue); 
 
-        line(leftPointX + pointDist/2, leftPointY, rightPointX + pointDist/2, rightPointY);
-        
-        ellipse(leftPointX + pointDist/2, leftPointY, 0.015*chartWidth, 0.015*chartWidth);
-        if (i == START_MONTH_COL + NUM_MONTHS-2) {
-          ellipse(rightPointX + pointDist/2, rightPointY, 0.015*chartWidth, 0.015*chartWidth);
-        }
-        index++;
+      line(leftPointX + pointDist/2, leftPointY, rightPointX + pointDist/2, rightPointY);
+      //fill(220);
+      ellipse(leftPointX + pointDist/2, leftPointY, 0.015*chartWidth, 0.015*chartWidth);
+      if (highlight(leftPointX + pointDist/2, leftPointY, 0.015*chartWidth)) {
+        hlight = true;
       }
+        
+      if (i == START_MONTH_COL + NUM_MONTHS-2) {
+        ellipse(rightPointX + pointDist/2, rightPointY, 0.015*chartWidth, 0.015*chartWidth);
+        if (highlight(leftPointX + pointDist/2, leftPointY, 0.015*chartWidth)) {            
+          hlight = true;
+        }
+      }
+      index++;
+    }
+    return hlight;
+
+  }
+  
+  
+  private void drawData() {
+    for (TableRow row : table.rows()) {
+      boolean hlight = false;
+      hlight = drawCandidate(row, 0);
+      if (hlight == true) {
+       drawCandidate(row, #ff0000);
+      }
+      //highlight_row(row)
+      //return ArrayList with rowID
     }
     
 

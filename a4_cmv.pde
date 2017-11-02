@@ -20,7 +20,6 @@
  ArrayList<Integer> newHighlights = new ArrayList<Integer>();
 
 
- 
  void setup() {
    size(950,700);
    pixelDensity(displayDensity());
