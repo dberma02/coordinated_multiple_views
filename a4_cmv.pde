@@ -27,7 +27,7 @@
    lineGraph = new LineGraph(10, 20, 525, 325, masterTable);
   // map = new Map (10, 360, 525,325, masterTable);
   //   rect(545,20, 395, 660);
-   pie = new Pie(masterTable, "Sep", .4*395, new PVector(545 + .5*(395), (20 + (.4*395) + 20))); 
+   pie = new Pie(masterTable, "Sep", .45*395, new PVector(545 + .5*(395), (20 + (.45*395) + 20))); 
   
    
   /* for (Candidate c : candidates) {
@@ -50,7 +50,7 @@
    lineGraph.render();
   // map.render();
   
-  pie = new Pie(masterTable, "Jan", .4*395, new PVector(545 + .5*(395), (20 + (.4*395) + 20)));
+  pie = new Pie(masterTable, "Jan", .45*395, new PVector(545 + .5*(395), (60 + (.4*395))));
   pie.drawChart();
    
  }
