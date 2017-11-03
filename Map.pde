@@ -12,14 +12,12 @@
  class Map {
   color REPUB_COLOR = color(200, 10, 0);
   color DEM_COLOR = color(5, 100, 230);
-  color OTHER_COLOR = color (60,179,113);
+  color OTHER_COLOR = color (144,75,191);
    
   private int chartX, chartY;
   private float chartWidth, chartHeight;
   private float offset;
   private Table table;
-
-  private ArrayList<Candidate> candidates;
 
   private String[] states = {"AK", "", "", "", "", "", "", "", "", "", "", "ME",
                              "",       "", "", "", "", "", "", "", "", "", "VT", "NH", 

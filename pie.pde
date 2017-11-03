@@ -13,7 +13,7 @@ public class Pie {
   String endMonth;
   color repC = color(200, 10, 3);
   color demC = color(5, 100, 230);
-  color othC = color(60, 179, 113);
+  color othC = color(144, 75, 191);
   ArrayList<Integer> hiList = new ArrayList<Integer>();
   
   Pie(Table table, String endMonth, float rad, PVector center) {
@@ -21,7 +21,7 @@ public class Pie {
     this.endMonth = endMonth;
     this.table = table;
     this.bigR = rad;
-    this.smallR = rad * .5;
+    this.smallR = rad * .7;
     this.center = center;
   //  this.bigAngles = setAngles();
     setTotal();
@@ -67,6 +67,9 @@ public class Pie {
     start = drawChunk(start, bigR, "Republican", repC);
     start = drawChunk(start, bigR, "Democrat", demC);
     start = drawChunk(start, bigR, "Other", othC);
+    
+//    fill(225);
+//    ellipse(center.x, center.y, smallR, smallR);
     return hiList; 
   }
   
@@ -78,7 +81,7 @@ public class Pie {
       rad * 2,
       start,
       end, PIE);
-      noFill();
+      noFill(); //<>//
       return end;
   } //<>//
   

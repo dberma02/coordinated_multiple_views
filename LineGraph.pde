@@ -6,6 +6,7 @@
  
  static int NUM_MONTHS = 9;
  static int START_MONTH_COL = 4;
+ static String[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
  
  class LineGraph {
   private float chartX, chartY;
@@ -15,6 +16,7 @@
   private float chartBottom;
   private float pointDist;
   private Table table;
+  private String selectedMonth;
   ArrayList<Integer> hiList = new ArrayList<Integer>();
 
   
@@ -24,7 +26,7 @@
                    Table table) {
     
     offset = min(canvasWidth, canvasHeight) * 0.09;
-
+    selectedMonth = "Sep";
     
     chartX = xPos;
   //  topY = yPos + offset;
@@ -54,6 +56,7 @@
   public ArrayList<Integer> render() {
     drawAxes();
     drawSeparators();
+    drawLabels();
     return drawData();
 
 
@@ -66,15 +69,47 @@
   
   
   private void drawSeparators() {
-    int numMonths = NUM_MONTHS;
     
     float firstX = chartX + offset + pointDist*2;
     
-    for (int i = 0; i < numMonths; i++) {
+    for (int i = 0; i < NUM_MONTHS; i++) {
       stroke(200);
       line(firstX + pointDist*2*i, chartBottom, firstX + pointDist*2*i, chartY + offset);
+      
+      if (monthHighlighted(firstX + pointDist*2*i - pointDist*2, chartY + offset)) {
+        //fill(170, 213, 250);
+        fill(235);
+        noStroke();
+        rect(firstX + pointDist*2*i - pointDist*2, chartY + offset*.9, pointDist*2, chartHeight+offset/1.4);
+      }
+      
+      if (selectedMonth == months[i]) {
+        fill(170, 213, 250);
+        noStroke();
+        rect(firstX + pointDist*2*i - pointDist*2, chartY + offset*.9, pointDist*2, chartHeight+offset/1.4);
+      } 
     }
+       
     stroke(0);
+    fill(0);
+  }
+  
+  private boolean monthHighlighted(float topX, float topY) {
+    if (mouseX > topX && mouseX < (topX + pointDist*2) && mouseY > topY && mouseY < (topY + chartHeight)) {
+      return true;
+    }
+    
+    return false;
+  }
+  
+  private void drawLabels() {
+    stroke(0);
+    float labelY = chartBottom + offset/2;
+    for (int i = 0; i < NUM_MONTHS; i++) {
+      float labelX = chartX + offset + pointDist + pointDist*2*i;
+      text(months[i], labelX, labelY);      
+    }
+    
   }
   
   private boolean highlight(float x, float y, float r) {
@@ -119,7 +154,7 @@
   private ArrayList<Integer> drawData() {
     hiList.clear();
     for (TableRow row : table.rows()) {
-      if ( drawCandidate(row, 0) ) {
+      if ( drawCandidate(row, 195) ) {
        hiList.add(row.getInt("ID"));
        drawCandidate(row, #ff0000);
       }

@@ -56,9 +56,10 @@
    //draw pie charts
    
    fill(255);
-   rect(10,20, 525,325);
+   background(255);
+ /*  rect(10,20, 525,325);
    rect(10, 360, 525,325);
-   rect(545,20, 395, 660);
+   rect(545,20, 395, 660); */
    
    map.render();
   
