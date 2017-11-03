@@ -20,6 +20,7 @@
  ArrayList<Integer> newHighlights = new ArrayList<Integer>();
  
  String currMonth = "Sep";
+ String currState = null;
 
 
  void setup() {
@@ -39,7 +40,7 @@
    currentTable = masterTable;
 //   candidates = parser.getData();
    
-   lineGraph = new LineGraph(10, 20, 525, 325, masterTable);
+   lineGraph = new LineGraph(10, 20, 525, 325, masterTable, currMonth);
    map = new Map (10, 360, 525,325, masterTable);
   //   rect(545,20, 395, 660);
    pie = new Pie(masterTable, "Sep", .45*395, new PVector(545 + .5*(395), (20 + (.45*395) + 20))); 
@@ -101,7 +102,7 @@
  
  void mouseClicked() {
    String month = lineGraph.monthClicked();
-   if (!month.equals("")) {
+   if (!month.equals(null)) {
      lineGraph.setMonth(month);
      currMonth = month;
    }

@@ -22,10 +22,10 @@
   private float maxValue = 0;
    
   public LineGraph(int xPos, int yPos, int canvasWidth, int canvasHeight, 
-                   Table table) {
+                   Table table, String currMonth) {
     
     offset = min(canvasWidth, canvasHeight) * 0.09;
-    selectedMonth = "Sep";
+    selectedMonth = currMonth;
     
     chartX = xPos;
   //  topY = yPos + offset;
@@ -74,7 +74,7 @@
       }
     }
     
-    return "";
+    return null;
     
   }
   
