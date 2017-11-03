@@ -18,6 +18,8 @@
  Pie pie;
  ArrayList<Integer> highlights = new ArrayList<Integer>();
  ArrayList<Integer> newHighlights = new ArrayList<Integer>();
+ 
+ String currMonth = "Sep";
 
 
  void setup() {
@@ -78,11 +80,12 @@
  private void highlight() {
      newHighlights.clear();
      
-     lineGraph = new LineGraph(10, 20, 525, 325, currentTable);
+    // lineGraph = new LineGraph(10, 20, 525, 325, currentTable, currMonth);
      newHighlights.addAll(lineGraph.render());
      
-     pie = new Pie(currentTable, "Sep", .45*395, new PVector(545 + .5*(395), (60 + (.4*395))));
+     pie = new Pie(currentTable, currMonth, .45*395, new PVector(545 + .5*(395), (60 + (.4*395))));
      newHighlights.addAll(pie.drawChart());
+     
      
      //now unhighlight old, highlight all new
      for(Integer i : highlights) {
@@ -94,5 +97,15 @@
      }
      highlights.addAll(newHighlights);
      
+ }
+ 
+ void mouseClicked() {
+   String month = lineGraph.monthClicked();
+   if (!month.equals("")) {
+     lineGraph.setMonth(month);
+     currMonth = month;
+   }
+   
+   String state = map.stateClicked();
  }
  

@@ -19,7 +19,6 @@
   private String selectedMonth;
   ArrayList<Integer> hiList = new ArrayList<Integer>();
 
-  
   private float maxValue = 0;
    
   public LineGraph(int xPos, int yPos, int canvasWidth, int canvasHeight, 
@@ -60,6 +59,23 @@
     return drawData();
 
 
+  }
+  
+  public void setMonth(String month) {
+    selectedMonth = month;
+  }
+  
+  public String monthClicked() {
+    float firstX = chartX + offset + pointDist*2;
+    
+    for (int i = 0; i < NUM_MONTHS; i++) {
+      if (monthHighlighted(firstX + pointDist*2*i - pointDist*2, chartY + offset)) {
+        return months[i];
+      }
+    }
+    
+    return "";
+    
   }
   
   private void drawAxes() {
@@ -168,6 +184,7 @@
     }
     return hiList;
   }
+  
   
   
    

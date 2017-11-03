@@ -41,8 +41,6 @@
     chartHeight = canvasHeight - offset*4;
     this.table = table;
     
-  //  this.candidates = candidates;
-    
     for (TableRow row : table.rows()) {
       String state = row.getString("State");
       String party = row.getString("Party");
@@ -125,6 +123,10 @@
         
       }
     }
+  }
+  
+  public String stateClicked() {
+    return "";
   }
    
  }

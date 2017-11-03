@@ -13,7 +13,7 @@ public class Pie {
   String endMonth;
   color repC = color(200, 10, 3);
   color demC = color(5, 100, 230);
-  color othC = color(144, 75, 191);
+  color othC = color(144,75,191);
   ArrayList<Integer> hiList = new ArrayList<Integer>();
   
   Pie(Table table, String endMonth, float rad, PVector center) {
