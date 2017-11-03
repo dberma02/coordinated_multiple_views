@@ -93,6 +93,7 @@
        currentTable.setString(i,"Highlight", "true");
      }
      highlights.addAll(newHighlights);
-     
  }
+ 
+
  

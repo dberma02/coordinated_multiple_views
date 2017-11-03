@@ -10,15 +10,15 @@ public class Pie {
   float smallR;
   PVector center;
   float donutR;
-  String endMonth;
+  String selectedMonth;
   color repC = color(200, 10, 3);
   color demC = color(5, 100, 230);
   color othC = color(144, 75, 191);
   ArrayList<Integer> hiList = new ArrayList<Integer>();
   
-  Pie(Table table, String endMonth, float rad, PVector center) {
+  Pie(Table table, String selectedMonth, float rad, PVector center) {
 
-    this.endMonth = endMonth;
+    this.selectedMonth = selectedMonth;
     this.table = table;
     this.bigR = rad;
     this.smallR = rad * .7;
@@ -35,7 +35,7 @@ public class Pie {
   //Make this the inner chart for party!  
   void setTotal() {
     for (TableRow row : table.rows()) {
-      float funds = row.getFloat(endMonth);
+      float funds = row.getFloat(selectedMonth);
         total += funds;  
       }
    }
@@ -91,13 +91,13 @@ public class Pie {
   private float drawChunk(float start, float rad, String party, color c) {
     float end = 0;    
     for (TableRow row : table.matchRows(party, "Party")) {
-      end = start + row.getFloat(endMonth) * 2 * PI / this.total;
+      end = start + row.getFloat(selectedMonth) * 2 * PI / this.total;
       if (highlight(start, end, rad)) {
         hiList.add(row.getInt("ID"));
       }
       
       if (row.getString("Highlight").equals("true")) {
-        drawLabel(row.getString("Candidate"), row.getString(endMonth));
+        drawLabel(row.getString("Candidate"), row.getString(selectedMonth));
         float red = red(c);
         float green = green(c);
         float blue = blue(c);
