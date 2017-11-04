@@ -88,6 +88,9 @@
      newHighlights.addAll(pie.drawChart());
      
      
+     
+     
+     
      //now unhighlight old, highlight all new
      for(Integer i : highlights) {
        currentTable.setString(i,"Highlight", "false");
@@ -102,11 +105,13 @@
  
  void mouseClicked() {
    String month = lineGraph.monthClicked();
-   if (!month.equals(null)) {
+   if (month != null) {
      lineGraph.setMonth(month);
      currMonth = month;
    }
+   println(month);
    
    String state = map.stateClicked();
+   println(state);
  }
  

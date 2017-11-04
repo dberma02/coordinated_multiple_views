@@ -7,8 +7,6 @@
  
  import java.util.ArrayList;
  
-
- 
  class Map {
   color REPUB_COLOR = color(200, 10, 0);
   color DEM_COLOR = color(5, 100, 230);
@@ -18,6 +16,8 @@
   private float chartWidth, chartHeight;
   private float offset;
   private Table table;
+  private float sizeLength;
+  ArrayList<Integer> hiList = new ArrayList<Integer>();
 
   private String[] states = {"AK", "", "", "", "", "", "", "", "", "", "", "ME",
                              "",       "", "", "", "", "", "", "", "", "", "VT", "NH", 
@@ -40,6 +40,7 @@
     chartWidth = canvasWidth - offset*2;
     chartHeight = canvasHeight - offset*4;
     this.table = table;
+    sizeLength = chartWidth/13;
     
     for (TableRow row : table.rows()) {
       String state = row.getString("State");
@@ -59,7 +60,8 @@
   }
   
   public void render() {
-    float sizeLength = chartWidth/13;
+    hiList.clear();
+    
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 12; j++) {
         if (states[i*12 + j] != "") {
@@ -115,6 +117,10 @@
                      chartX + offset*1.5 + sizeLength*j + sizeLength-3, chartY + offset + sizeLength*i + sizeLength-3);
           }
           
+          if (isHighlighted(chartX + offset*1.5 + sizeLength*j, chartY + offset + sizeLength*i)) {
+            
+          }
+          
           fill(0);
           textAlign(CENTER);
           textSize(10);
@@ -126,7 +132,24 @@
   }
   
   public String stateClicked() {
-    return "";
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 12; j++) {
+        if (isHighlighted(chartX + offset*1.5 + sizeLength*j, chartY + offset + sizeLength*i)) {
+          return states[i*12 + j];
+        }
+      }
+    }
+    
+    return null;
+    
+  }
+  
+  public boolean isHighlighted(float leftX, float leftY) {
+    if (mouseX > leftX && mouseX < leftX + sizeLength-3 && mouseY > leftY && mouseY < leftY + sizeLength-3) {
+      return true;
+    }
+    return false;
+    
   }
    
  }
