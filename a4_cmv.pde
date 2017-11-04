@@ -102,7 +102,10 @@
 
  void mouseClicked() {
    String month = lineGraph.monthClicked();
-   if (!month.equals(null)) {
+   
+   //changed back to "" bc .equals(null) throws null pointer exception
+   if (!month.equals("")) {
+     
      lineGraph.setMonth(month);
      currMonth = month;
    }

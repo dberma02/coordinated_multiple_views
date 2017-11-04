@@ -17,6 +17,10 @@
   private float pointDist;
   private Table table;
   private String selectedMonth;
+  private int selectedMonthIndex;
+  private color repC = color(200, 10, 3);
+  private color demC = color(5, 100, 230);
+  private color othC = color(144,75,191);
   ArrayList<Integer> hiList = new ArrayList<Integer>();
 
   private float maxValue = 0;
@@ -26,6 +30,8 @@
     
     offset = min(canvasWidth, canvasHeight) * 0.09;
     selectedMonth = currMonth;
+    selectedMonthIndex = getMonthIndex(currMonth);
+
     
     chartX = xPos;
   //  topY = yPos + offset;
@@ -51,6 +57,14 @@
     }
   }
  
+  public int getMonthIndex(String month) {
+      for (int i = 0; i < months.length; i++) {
+        if (months[i] == month) {
+          return i;
+        }
+      }
+      return -1;
+  }
   
   public ArrayList<Integer> render() {
     drawAxes();
@@ -63,18 +77,29 @@
   
   public void setMonth(String month) {
     selectedMonth = month;
+    selectedMonthIndex = getMonthIndex(month);
+  }
+  
+  public Boolean onCanvas() {
+    if(mouseX > chartX && mouseX < (chartX + chartWidth) &&
+       mouseY > chartY && mouseY < (chartY + chartHeight)) {
+         return true;
+       } else {
+         return false; 
+       }
   }
   
   public String monthClicked() {
-    float firstX = chartX + offset + pointDist*2;
+    float firstX = chartX + offset + pointDist*2; //<>//
     
-    for (int i = 0; i < NUM_MONTHS; i++) {
-      if (monthHighlighted(firstX + pointDist*2*i - pointDist*2, chartY + offset)) {
-        return months[i];
+      for (int i = 0; i < NUM_MONTHS; i++) {
+        if (monthHighlighted(firstX + pointDist*2*i - pointDist*2, chartY + offset)) {
+          println("numMonths: ", NUM_MONTHS, "months i:", months[i]);
+          return months[i];
+        }
       }
-    }
     
-    return null;
+    return "";
     
   }
   
@@ -136,12 +161,14 @@
     }
   }
   
-  private boolean drawCandidate(TableRow row, color c) {
+  // Returns true if candidate should be highlighted (currently hovered over).
+  // Returns false otherwise.
+  private boolean drawCandidate(TableRow row, float endMonthCol, color c) {
     boolean hlight = false;
     fill(c);
     stroke(c);
     int index = 0;
-    for (int i = START_MONTH_COL; i < START_MONTH_COL + NUM_MONTHS-1; i++) {
+    for (int i = START_MONTH_COL; i < endMonthCol; i++) {
       float leftPointX = chartX + offset + pointDist*.5 + pointDist*2*index;
       float leftPointY = chartBottom - (row.getFloat(i) * chartHeight/maxValue);
       float rightPointX = chartX + offset + pointDist*.5 + pointDist*2*(index+1);
@@ -150,13 +177,14 @@
       line(leftPointX + pointDist/2, leftPointY, rightPointX + pointDist/2, rightPointY);
       //fill(220);
       ellipse(leftPointX + pointDist/2, leftPointY, 0.015*chartWidth, 0.015*chartWidth);
+      ellipse(rightPointX + pointDist/2, rightPointY, 0.015*chartWidth, 0.015*chartWidth);
       if (highlight(leftPointX + pointDist/2, leftPointY, 0.015*chartWidth)) {
         hlight = true;
       }
         
       if (i == START_MONTH_COL + NUM_MONTHS-2) {
         ellipse(rightPointX + pointDist/2, rightPointY, 0.015*chartWidth, 0.015*chartWidth);
-        if (highlight(leftPointX + pointDist/2, leftPointY, 0.015*chartWidth)) {            
+        if (highlight(rightPointX + pointDist/2, rightPointY, 0.015*chartWidth)) {            
           hlight = true;
         }
       }
@@ -166,25 +194,69 @@
 
   }
   
+  private color setColor(TableRow row) {
+    String party = row.getString("Party");
+    color lineColor = color(0);
+  
+    if (party.equals("Democrat")) {
+      lineColor = demC;
+    } else if (party.equals("Republican")) {
+      lineColor = repC;
+    } else if (party.equals("Other")) {
+      lineColor = othC;
+    }
+    return lineColor;
+  }
+  
+  boolean noneHighlighted() {
+     for(TableRow row : table.findRows("true", "Highlight")) {
+      return false; 
+     }
+     return true;
+  }
   
   private ArrayList<Integer> drawData() {
     hiList.clear();
     for (TableRow row : table.rows()) {
-      if ( drawCandidate(row, 195) ) {
+      color lineColor = setColor(row);
+      
+      if ( drawCandidate(row, START_MONTH_COL + NUM_MONTHS-1, lineColor) ) {
        hiList.add(row.getInt("ID"));
-       drawCandidate(row, #ff0000);
+       drawCandidate(row, START_MONTH_COL + selectedMonthIndex, makeHighlightC(lineColor));
       }
 
-      //highlight_row(row)
-      //return ArrayList with rowID
+      
     }
     //second for loop so highlighted lines are drawn on top of others 
-    for (TableRow row : table.matchRows("true","Highlight")) {
-       drawCandidate(row, #ff0000);
+    
+    if(!noneHighlighted()) {
+      for (TableRow row : table.findRows("true","Highlight")) {
+        color lineColor = setColor(row);
+        color highlightColor = makeHighlightC(lineColor);
+        drawCandidate(row, START_MONTH_COL + selectedMonthIndex, highlightColor);
+      }
+     } else {
+    
+      for (TableRow row : table.findRows("true","Highlight")) {
+        color lineColor = setColor(row);
+        color highlightColor = makeHighlightC(lineColor);
+        drawCandidate(row, START_MONTH_COL + selectedMonthIndex, highlightColor);
+      }
+     // for (TableRow row : table.findRows("false","Highlight")) {
+     //   drawCandidate(row, START_MONTH_COL + NUM_MONTHS-1, color(235));
+     //}
     }
+    
     return hiList;
   }
   
+  private color makeHighlightC(color c) {
+    float red = red(c);
+    float green = green(c);
+    float blue = blue(c);
+    float sclr = 1.5;
+    return color(red*sclr, green*sclr, blue*sclr);
+  }
   
   
    

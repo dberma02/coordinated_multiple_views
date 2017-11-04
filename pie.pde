@@ -81,9 +81,17 @@ public class Pie {
       rad * 2,
       start,
       end, PIE);
-      noFill(); //<>//
+      noFill();
       return end;
-  } //<>//
+  }
+  
+  private color makeHighlightC(color c) {
+    float red = red(c);
+    float green = green(c);
+    float blue = blue(c);
+    float sclr = 1.5;
+    return color(red*sclr, green*sclr, blue*sclr);
+  }
   
   //Used so that we can draw each party a different color.
   //Returns the end angle of last slice in the chunk, (will be used as
@@ -98,11 +106,7 @@ public class Pie {
       
       if (row.getString("Highlight").equals("true")) {
         drawLabel(row.getString("Candidate"), row.getString(selectedMonth));
-        float red = red(c);
-        float green = green(c);
-        float blue = blue(c);
-        float sclr = 1.5;
-        fill(red*sclr, green*sclr, blue*sclr);
+        fill(makeHighlightC(c));
       } else {
         fill(c); 
       }
