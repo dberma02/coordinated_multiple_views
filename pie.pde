@@ -10,15 +10,15 @@ public class Pie {
   float smallR;
   PVector center;
   float donutR;
-  String endMonth;
+  String selectedMonth;
   color repC = color(200, 10, 3);
   color demC = color(5, 100, 230);
   color othC = color(144,75,191);
   ArrayList<Integer> hiList = new ArrayList<Integer>();
   
-  Pie(Table table, String endMonth, float rad, PVector center) {
+  Pie(Table table, String selectedMonth, float rad, PVector center) {
 
-    this.endMonth = endMonth;
+    this.selectedMonth = selectedMonth;
     this.table = table;
     this.bigR = rad;
     this.smallR = rad * .7;
@@ -35,7 +35,7 @@ public class Pie {
   //Make this the inner chart for party!  
   void setTotal() {
     for (TableRow row : table.rows()) {
-      float funds = row.getFloat(endMonth);
+      float funds = row.getFloat(selectedMonth);
         total += funds;  
       }
    }
@@ -68,8 +68,8 @@ public class Pie {
     start = drawChunk(start, bigR, "Democrat", demC);
     start = drawChunk(start, bigR, "Other", othC);
     
-//    fill(225);
-//    ellipse(center.x, center.y, smallR, smallR);
+    fill(255);
+    ellipse(center.x, center.y, donutR, donutR);
     return hiList; 
   }
   
@@ -83,7 +83,15 @@ public class Pie {
       end, PIE);
       noFill(); //<>//
       return end;
-  } //<>//
+  }
+  
+  private color makeHighlightC(color c) {
+    float red = red(c);
+    float green = green(c);
+    float blue = blue(c);
+    float sclr = 1.5;
+    return color(red*sclr, green*sclr, blue*sclr);
+  }
   
   //Used so that we can draw each party a different color.
   //Returns the end angle of last slice in the chunk, (will be used as
@@ -91,18 +99,14 @@ public class Pie {
   private float drawChunk(float start, float rad, String party, color c) {
     float end = 0;    
     for (TableRow row : table.matchRows(party, "Party")) {
-      end = start + row.getFloat(endMonth) * 2 * PI / this.total;
+      end = start + row.getFloat(selectedMonth) * 2 * PI / this.total;
       if (highlight(start, end, rad)) {
         hiList.add(row.getInt("ID"));
       }
       
       if (row.getString("Highlight").equals("true")) {
-        drawLabel(row.getString("Candidate"), row.getString(endMonth));
-        float red = red(c);
-        float green = green(c);
-        float blue = blue(c);
-        float sclr = 1.5;
-        fill(red*sclr, green*sclr, blue*sclr);
+        drawLabel(row.getString("Candidate"), row.getString(selectedMonth));
+        fill(makeHighlightC(c));
       } else {
         fill(c); 
       }
@@ -163,5 +167,6 @@ public class Pie {
     textAlign(CENTER);
     text(label, center.x, center.y + bigR + 20);
   }
+
   
 }

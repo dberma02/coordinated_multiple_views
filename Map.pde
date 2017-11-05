@@ -59,7 +59,7 @@
     println(statesStatus);
   }
   
-  public void render() {
+  public ArrayList<Integer> render() {
     hiList.clear();
     
     for (int i = 0; i < 8; i++) {
@@ -105,7 +105,18 @@
             squareColor = OTHER_COLOR;
             // green square
           } 
+          
+          if (isHighlighted(chartX + offset*1.5 + sizeLength*j, chartY + offset + sizeLength*i) && squareColor != color(220)) {
+            squareColor = makeHighlightC(squareColor);
+            triangleColor = makeHighlightC(triangleColor);
             
+            for (TableRow row : stateCands) {
+              hiList.add(row.getInt("ID"));
+            }
+            
+          }
+            
+          stroke(0);
           fill(squareColor);
           rect(chartX + offset*1.5 + sizeLength*j, chartY + offset + sizeLength*i, sizeLength-3, sizeLength-3);
           fill(0);
@@ -117,10 +128,6 @@
                      chartX + offset*1.5 + sizeLength*j + sizeLength-3, chartY + offset + sizeLength*i + sizeLength-3);
           }
           
-          if (isHighlighted(chartX + offset*1.5 + sizeLength*j, chartY + offset + sizeLength*i)) {
-            
-          }
-          
           fill(0);
           textAlign(CENTER);
           textSize(10);
@@ -129,6 +136,8 @@
         
       }
     }
+    
+    return hiList;
   }
   
   public String stateClicked() {
@@ -150,6 +159,14 @@
     }
     return false;
     
+  }
+  
+  private color makeHighlightC(color c) {
+    float red = red(c);
+    float green = green(c);
+    float blue = blue(c);
+    float sclr = 1.5;
+    return color(red*sclr, green*sclr, blue*sclr);
   }
    
  }
