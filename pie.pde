@@ -99,9 +99,7 @@ public class Pie {
   //start angle in next chunk)
   private float drawChunk(float start, float rad, String party, color c) {
     float end = 0;  
-    int debug = 0;
     for (TableRow row : table.matchRows(party, "Party")) {
-      println(debug++);
       end = start + row.getFloat(selectedMonth) * 2 * PI / this.total;
       if (highlight(start, end, rad)) {
         hiList.add(row.getInt("ID"));

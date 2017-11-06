@@ -50,40 +50,19 @@
    
    background(255);
    fill(255);
-   
-  //figure out highlighting here
-  //have a current highlight list
-  //set all in the list to highlight
-  //feed the list to the graphs
-    //graphs will return new hightlight list--each one can be the last one appended to eachother
-    //then at end, unhighlight old list, rehighlight new one
   
    highlight();
-
-   
  }
  
  private void highlight() {
-     println("current state: " + currState);
-     println("current month: " + currMonth);
      
      newHighlights.clear();
      
-    // lineGraph = new LineGraph(10, 20, 525, 325, currentTable, currMonth);
      newHighlights.addAll(lineGraph.render());
      newHighlights.addAll(map.render());
      
      //pie = new Pie(currentTable, currMonth, .40*395, new PVector(720, 500));
      newHighlights.addAll(pie.drawChart());
-     
-     int j = 0;
-     for (TableRow row : currentTable.rows()) {
-       println(j++);
-       println(row.getString(0));
-     }
-     
-     
-     
      
      //now unhighlight old, highlight all new
      for(Integer i : highlights) {
@@ -111,10 +90,12 @@
    String state = map.stateClicked();
    if (state != null) { 
      if (state.equals("ALL")) {
+       currState = null;
+       currentTable = masterTable;
        map = new Map (500, 0, 450,400, masterTable, false, null);
        pie = new Pie(masterTable, currMonth, .40*395, new PVector(720, 500), masterTable);
+       
      } else {
-     
        Iterable<TableRow> newRows = masterTable.findRows(state, "State");
      
        boolean hasData = false;
@@ -153,12 +134,5 @@
          pie = new Pie(currentTable, currMonth, .40*395, new PVector(720, 500), masterTable); 
        }
      }
-       
-    //     println("inside: '" + row.getString("ID") + "'");
-       
-       
-     
-     
    } 
-   println(state); 
  }

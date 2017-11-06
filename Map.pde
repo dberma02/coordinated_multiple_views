@@ -61,8 +61,6 @@
         statesStatus.put(state, party);
       }      
     }
-  
-    println(statesStatus);
   }
   
   public ArrayList<Integer> render() {
