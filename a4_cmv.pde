@@ -85,7 +85,6 @@
      currMonth = month;
      pie = new Pie(currentTable, currMonth, .40*395, new PVector(720, 500), masterTable); 
    }
-   println(month);
    
    String state = map.stateClicked();
    if (state != null) { 

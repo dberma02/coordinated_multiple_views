@@ -26,7 +26,7 @@ public class Pie {
   //  this.bigAngles = setAngles();
     setTotal();
    // println(total);
-    isPie = true;
+    isPie = false;
      //r = min(width, height) * 0.4;
      bigR = rad;
     donutR = 0;
@@ -68,9 +68,10 @@ public class Pie {
     start = drawChunk(start, bigR, "Republican", repC);
     start = drawChunk(start, bigR, "Democrat", demC);
     start = drawChunk(start, bigR, "Other", othC);
+
+   // fill(255);
+   // ellipse(center.x, center.y, bigR, bigR);   
     
-    fill(255);
-    ellipse(center.x, center.y, donutR, donutR);
     return hiList; 
   }
   
@@ -80,8 +81,8 @@ public class Pie {
       arc(center.x, center.y,
       rad * 2,
       rad * 2,
-      start,
-      end, PIE); //<>//
+      start, //<>//
+      end, PIE);
       noFill();
       return end;
   }
@@ -106,8 +107,11 @@ public class Pie {
       }
       
       // needs to check if highlighted in the master table
-      //if (row.getString("Highlight").equals("true")) {
-      if (masterTable.findRow(row.getString("Candidate"), "Candidate").getString("Highlight").equals("true")) {
+      if (masterTable.findRow(row.getString("Candidate"), "Candidate").getString("Highlight").equals("true")) {        
+        //loadimage
+       /* PImage img = loadImage(row.getString("Candidate") + ".jpg");
+        image(img, center.x-20, center.y-20, img.width/5, img.height/5); */
+        
         drawLabel(row.getString("Candidate"), row.getString(selectedMonth));
         fill(makeHighlightC(c));
       } else {
