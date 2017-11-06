@@ -4,6 +4,7 @@ public class Pie {
   Table table;
   Table masterTable;
   int total = 0;
+  boolean zeroTotal;
   boolean isPie;
   float bigR;
   float smallR;
@@ -26,7 +27,7 @@ public class Pie {
   //  this.bigAngles = setAngles();
     setTotal();
    // println(total);
-    isPie = false;
+    isPie = true;
      //r = min(width, height) * 0.4;
      bigR = rad;
     donutR = 0;
@@ -38,6 +39,11 @@ public class Pie {
     for (TableRow row : table.rows()) {
       float funds = row.getFloat(selectedMonth);
         total += funds;  
+      }
+      if(total > 0) {
+        zeroTotal = false;
+      } else {
+        zeroTotal = true; 
       }
    }
   
@@ -65,12 +71,19 @@ public class Pie {
     
     stroke(0);
     strokeWeight(1);   
-    start = drawChunk(start, bigR, "Republican", repC);
-    start = drawChunk(start, bigR, "Democrat", demC);
-    start = drawChunk(start, bigR, "Other", othC);
 
-   // fill(255);
-   // ellipse(center.x, center.y, bigR, bigR);   
+    if( !zeroTotal ) {
+      start = drawChunk(start, bigR, "Republican", repC);
+      start = drawChunk(start, bigR, "Democrat", demC);
+      start = drawChunk(start, bigR, "Other", othC);
+      
+     // fill(255);
+     // ellipse(center.x, center.y, donutR, donutR);
+    } else {
+      drawChunk(0, bigR, "Republican", repC);
+      drawChunk(0, bigR, "Democrat", demC); //<>//
+      drawChunk(0, bigR, "Other", othC);
+    }
     
     return hiList; 
   }
@@ -101,7 +114,12 @@ public class Pie {
   private float drawChunk(float start, float rad, String party, color c) {
     float end = 0;  
     for (TableRow row : table.matchRows(party, "Party")) {
-      end = start + row.getFloat(selectedMonth) * 2 * PI / this.total;
+      if(zeroTotal) {
+        end = 2 * PI;
+      } else {
+        end = start + row.getFloat(selectedMonth) * 2 * PI / this.total;
+      }
+      
       if (highlight(start, end, rad)) {
         hiList.add(row.getInt("ID"));
       }
@@ -170,6 +188,14 @@ public class Pie {
   
   void drawLabel(String name, String value) {
     String label = name + ", " + value;
+    
+    fill(255);
+    noStroke();
+    rectMode(CENTER);
+    rect(center.x, center.y + bigR + 20, 400, 30);
+    rectMode(CORNER);
+    stroke(0);
+    
     fill(0);
     textAlign(CENTER);
     text(label, center.x, center.y + bigR + 20);

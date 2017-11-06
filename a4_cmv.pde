@@ -40,7 +40,7 @@
    currentTable = masterTable;
   
    lineGraph = new LineGraph(0, 0, 500, 700, masterTable, currMonth);
-   map = new Map (500, 0, 450,400, masterTable, false, null);
+   map = new Map (500, 0, 450,400, "Sep", masterTable, false, null);
    pie = new Pie(masterTable, "Sep", .40*395, new PVector(720, 500), masterTable); 
    
  }
@@ -91,7 +91,7 @@
      if (state.equals("ALL")) {
        currState = null;
        currentTable = masterTable;
-       map = new Map (500, 0, 450,400, masterTable, false, null);
+       map = new Map (500, 0, 450,400, currMonth, masterTable, false, null);
        pie = new Pie(masterTable, currMonth, .40*395, new PVector(720, 500), masterTable);
        
      } else {
@@ -129,7 +129,7 @@
          currState = state;
          currentTable = newTable;
          
-         map = new Map (500, 0, 450,400, masterTable, true, state);
+         map = new Map (500, 0, 450,400, currMonth, masterTable, true, state);
          pie = new Pie(currentTable, currMonth, .40*395, new PVector(720, 500), masterTable); 
        }
      }

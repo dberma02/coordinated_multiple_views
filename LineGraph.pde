@@ -4,6 +4,9 @@
  *
  */
  
+ import java.util.Set;
+ import java.util.HashSet;
+ 
  static int NUM_MONTHS = 9;
  static int START_MONTH_COL = 4;
  static String[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
@@ -22,6 +25,7 @@
   private color demC = color(5, 100, 230);
   private color othC = color(144,75,191);
   ArrayList<Integer> hiList = new ArrayList<Integer>();
+  Set<String> labelList = new HashSet<String>();
 
   private float maxValue = 0;
    
@@ -189,12 +193,14 @@
       ellipse(leftPointX + pointDist/2, leftPointY, 0.015*chartWidth, 0.015*chartWidth);
       ellipse(rightPointX + pointDist/2, rightPointY, 0.015*chartWidth, 0.015*chartWidth);
       if (highlight(leftPointX + pointDist/2, leftPointY, 0.015*chartWidth)) {
+        labelList.add(row.getString("Candidate") + ", " + row.getString(i));
         hlight = true;
       }
         
       if (i == START_MONTH_COL + NUM_MONTHS-2) {
         ellipse(rightPointX + pointDist/2, rightPointY, 0.015*chartWidth, 0.015*chartWidth);
-        if (highlight(rightPointX + pointDist/2, rightPointY, 0.015*chartWidth)) {            
+        if (highlight(rightPointX + pointDist/2, rightPointY, 0.015*chartWidth)) {  
+          labelList.add(row.getString("Candidate") + ", " + row.getString(i));
           hlight = true;
         }
       }
@@ -227,6 +233,7 @@
   
   private ArrayList<Integer> drawData() {
     hiList.clear();
+    labelList.clear();
     for (TableRow row : table.rows()) {
       color lineColor = setColor(row);
       
@@ -257,6 +264,8 @@
      //}
     }
     
+    drawHover();
+    
     return hiList;
   }
   
@@ -266,6 +275,21 @@
     float blue = blue(c);
     float sclr = 1.5;
     return color(red*sclr, green*sclr, blue*sclr);
+  }
+  
+  private void drawHover() {
+    if (labelList.size() != 0 ) {
+      fill(255);
+      stroke(0);
+      int i = 0;
+      rect(chartX+offset*4-90, chartY-10 + offset*2, 180, 5+10*labelList.size());
+      fill(0);
+      for (String label : labelList) {
+        text(label, chartX+offset*4, chartY + offset*2 + i*10);
+        i++;
+      }
+      stroke(0);
+    }
   }
   
   

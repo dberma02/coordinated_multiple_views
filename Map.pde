@@ -18,6 +18,8 @@
   private Table table;
   private float sizeLength;
   ArrayList<Integer> hiList = new ArrayList<Integer>();
+  Set<String> labelList = new HashSet<String>();
+  String selectedMonth;
   boolean hasSelectedState;
   String selectedState = null;
   
@@ -33,7 +35,7 @@
                              
   private HashMap<String, String> statesStatus = new HashMap<String, String>();
   
-  public Map(int xPos, int yPos, int canvasWidth, int canvasHeight, 
+  public Map(int xPos, int yPos, int canvasWidth, int canvasHeight, String selectedMonth,
              Table table, boolean hasSelectedState, String selectedState) {
                
     offset = min(canvasWidth, canvasHeight) * 0.04;
@@ -45,6 +47,7 @@
     this.table = table;
     sizeLength = chartWidth/13;
     
+    this.selectedMonth = selectedMonth;
     this.hasSelectedState = hasSelectedState;
     this.selectedState = selectedState;
     
@@ -65,6 +68,7 @@
   
   public ArrayList<Integer> render() {
     hiList.clear();
+    labelList.clear();
     
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 12; j++) {
@@ -115,6 +119,7 @@
             triangleColor = makeHighlightC(triangleColor);
             
             for (TableRow row : stateCands) {
+              labelList.add(row.getString("Candidate") + ", " + row.getString(selectedMonth));
               hiList.add(row.getInt("ID"));
             }
             
@@ -151,6 +156,8 @@
         
       }
     }
+    
+    drawHover();
     
     return hiList;
   }
@@ -194,6 +201,21 @@
     float blue = blue(c);
     float sclr = 1.2;
     return color(red/sclr, green/sclr, blue/sclr);
+  }
+  
+    private void drawHover() {
+    if (labelList.size() != 0 ) {
+      fill(255);
+      stroke(0);
+      int i = 0;
+      rect(63*4-90, -10 + 63*2, 180, 5+10*labelList.size());
+      fill(0);
+      for (String label : labelList) {
+        text(label, 63*4, 63*2 + i*10);
+        i++;
+      }
+      stroke(0);
+    }
   }
    
  }
