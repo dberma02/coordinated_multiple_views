@@ -144,6 +144,7 @@
   }
   
   private void drawLabels() {
+    textSize(10);
     stroke(0);
     float labelY = chartBottom + offset/2;
     for (int i = 0; i < NUM_MONTHS; i++) {

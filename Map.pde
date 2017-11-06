@@ -18,6 +18,9 @@
   private Table table;
   private float sizeLength;
   ArrayList<Integer> hiList = new ArrayList<Integer>();
+  boolean hasSelectedState;
+  String selectedState = null;
+  
 
   private String[] states = {"AK", "", "", "", "", "", "", "", "", "", "", "ME",
                              "",       "", "", "", "", "", "", "", "", "", "VT", "NH", 
@@ -31,7 +34,7 @@
   private HashMap<String, String> statesStatus = new HashMap<String, String>();
   
   public Map(int xPos, int yPos, int canvasWidth, int canvasHeight, 
-             Table table) {
+             Table table, boolean hasSelectedState, String selectedState) {
                
     offset = min(canvasWidth, canvasHeight) * 0.04;
     
@@ -41,6 +44,9 @@
     chartHeight = canvasHeight - offset*4;
     this.table = table;
     sizeLength = chartWidth/13;
+    
+    this.hasSelectedState = hasSelectedState;
+    this.selectedState = selectedState;
     
     for (TableRow row : table.rows()) {
       String state = row.getString("State");
@@ -115,6 +121,17 @@
             }
             
           }
+          
+          if (hasSelectedState) { 
+            if (selectedState == states[i*12 + j]) {
+              squareColor = makeHighlightC(squareColor);
+              triangleColor = makeHighlightC(triangleColor);
+            } else if (squareColor != color(220)) {
+              squareColor = darkenC(squareColor);
+              triangleColor = darkenC(triangleColor);
+            }
+            
+          }
             
           stroke(0);
           fill(squareColor);
@@ -141,6 +158,10 @@
   }
   
   public String stateClicked() {
+    if (mouseButton == RIGHT) {
+      return "ALL";
+    }
+    
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 12; j++) {
         if (isHighlighted(chartX + offset*1.5 + sizeLength*j, chartY + offset + sizeLength*i)) {
@@ -167,6 +188,14 @@
     float blue = blue(c);
     float sclr = 1.5;
     return color(red*sclr, green*sclr, blue*sclr);
+  }
+  
+  private color darkenC(color c) {
+    float red = red(c);
+    float green = green(c);
+    float blue = blue(c);
+    float sclr = 1.2;
+    return color(red/sclr, green/sclr, blue/sclr);
   }
    
  }

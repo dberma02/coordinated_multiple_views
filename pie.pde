@@ -1,9 +1,8 @@
-color blue = color(0, 150, 200);
-color lightBlue = color(0, 0, 0);
-//color lightBlue = color(0, 100, 255);
+
 
 public class Pie {
   Table table;
+  Table masterTable;
   int total = 0;
   boolean isPie;
   float bigR;
@@ -16,15 +15,17 @@ public class Pie {
   color othC = color(144,75,191);
   ArrayList<Integer> hiList = new ArrayList<Integer>();
   
-  Pie(Table table, String selectedMonth, float rad, PVector center) {
+  Pie(Table table, String selectedMonth, float rad, PVector center, Table masterTable) {
 
     this.selectedMonth = selectedMonth;
     this.table = table;
+    this.masterTable = masterTable;
     this.bigR = rad;
     this.smallR = rad * .7;
     this.center = center;
   //  this.bigAngles = setAngles();
     setTotal();
+   // println(total);
     isPie = true;
      //r = min(width, height) * 0.4;
      bigR = rad;
@@ -80,8 +81,8 @@ public class Pie {
       rad * 2,
       rad * 2,
       start,
-      end, PIE);
-      noFill(); //<>//
+      end, PIE); //<>//
+      noFill();
       return end;
   }
   
@@ -97,14 +98,18 @@ public class Pie {
   //Returns the end angle of last slice in the chunk, (will be used as
   //start angle in next chunk)
   private float drawChunk(float start, float rad, String party, color c) {
-    float end = 0;    
+    float end = 0;  
+    int debug = 0;
     for (TableRow row : table.matchRows(party, "Party")) {
+      println(debug++);
       end = start + row.getFloat(selectedMonth) * 2 * PI / this.total;
       if (highlight(start, end, rad)) {
         hiList.add(row.getInt("ID"));
       }
       
-      if (row.getString("Highlight").equals("true")) {
+      // needs to check if highlighted in the master table
+      //if (row.getString("Highlight").equals("true")) {
+      if (masterTable.findRow(row.getString("Candidate"), "Candidate").getString("Highlight").equals("true")) {
         drawLabel(row.getString("Candidate"), row.getString(selectedMonth));
         fill(makeHighlightC(c));
       } else {
