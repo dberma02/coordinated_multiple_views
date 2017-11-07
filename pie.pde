@@ -71,16 +71,17 @@ public class Pie {
     
     stroke(0);
     strokeWeight(1);   
+
     if( !zeroTotal ) {
       start = drawChunk(start, bigR, "Republican", repC);
       start = drawChunk(start, bigR, "Democrat", demC);
       start = drawChunk(start, bigR, "Other", othC);
       
-      fill(255);
-      ellipse(center.x, center.y, donutR, donutR);
+     // fill(255);
+     // ellipse(center.x, center.y, donutR, donutR);
     } else {
       drawChunk(0, bigR, "Republican", repC);
-      drawChunk(0, bigR, "Democrat", demC);
+      drawChunk(0, bigR, "Democrat", demC); //<>//
       drawChunk(0, bigR, "Other", othC);
     }
     
@@ -93,8 +94,8 @@ public class Pie {
       arc(center.x, center.y,
       rad * 2,
       rad * 2,
-      start,
-      end, PIE); //<>//
+      start, //<>//
+      end, PIE);
       noFill();
       return end;
   }
@@ -124,8 +125,11 @@ public class Pie {
       }
       
       // needs to check if highlighted in the master table
-      //if (row.getString("Highlight").equals("true")) {
-      if (masterTable.findRow(row.getString("Candidate"), "Candidate").getString("Highlight").equals("true")) {
+      if (masterTable.findRow(row.getString("Candidate"), "Candidate").getString("Highlight").equals("true")) {        
+        //loadimage
+       /* PImage img = loadImage(row.getString("Candidate") + ".jpg");
+        image(img, center.x-20, center.y-20, img.width/5, img.height/5); */
+        
         drawLabel(row.getString("Candidate"), row.getString(selectedMonth));
         fill(makeHighlightC(c));
       } else {
@@ -184,6 +188,14 @@ public class Pie {
   
   void drawLabel(String name, String value) {
     String label = name + ", " + value;
+    
+    fill(255);
+    noStroke();
+    rectMode(CENTER);
+    rect(center.x, center.y + bigR + 20, 400, 30);
+    rectMode(CORNER);
+    stroke(0);
+    
     fill(0);
     textAlign(CENTER);
     text(label, center.x, center.y + bigR + 20);
