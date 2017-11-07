@@ -225,8 +225,10 @@
      return true;
   }
   
+  
   private ArrayList<Integer> drawData() {
     hiList.clear();
+    
     for (TableRow row : table.rows()) {
       color lineColor = setColor(row);
       
