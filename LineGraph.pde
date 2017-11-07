@@ -247,25 +247,32 @@
     }
     //second for loop so highlighted lines are drawn on top of others 
     
-    if(!noneHighlighted()) {
+    if(noneHighlighted()) {
       for (TableRow row : table.findRows("true","Highlight")) {
-        //color lineColor = setColor(row);
-        //color highlightColor = makeHighlightC(lineColor);
-        color highlightColor = color(230);
+        color lineColor = setColor(row);
+        color highlightColor = makeHighlightC(lineColor);
+        //color highlightColor = color(100);
+        //stroke(100);
+
         drawCandidate(row, START_MONTH_COL + selectedMonthIndex, highlightColor);
       }
      } else {
     
+      for (TableRow row : table.rows()) {
+        stroke(200);
+        color lineColor = setColor(row);
+        color highlightColor = darkenC(lineColor);
+        drawCandidate(row, START_MONTH_COL + NUM_MONTHS-1, highlightColor);
+      }
+
       for (TableRow row : table.findRows("true","Highlight")) {
-        //color lineColor = setColor(row);
-        //color highlightColor = makeHighlightC(lineColor);
-        color highlightColor = color(0);
+        color lineColor = setColor(row);
+        color highlightColor = makeHighlightC(lineColor);
+        //color highlightColor = color(0);
         stroke(230);
         drawCandidate(row, START_MONTH_COL + selectedMonthIndex, highlightColor);
       }
-     // for (TableRow row : table.findRows("false","Highlight")) {
-     //   drawCandidate(row, START_MONTH_COL + NUM_MONTHS-1, color(235));
-     //}
+  
     }
     
     drawHover();
@@ -296,6 +303,13 @@
     }
   }
   
+  private color darkenC(color c) {
+    float red = red(c);
+    float green = green(c);
+    float blue = blue(c);
+    float sclr = 1.2;
+    return color(red/sclr, green/sclr, blue/sclr);
+  }
   
    
  }
