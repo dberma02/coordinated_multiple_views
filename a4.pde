@@ -12,7 +12,6 @@
  Parser parser;
  Table masterTable;
  Table currentTable;
- ArrayList<Candidate> candidates;
  LineGraph lineGraph;
  Map map;
  Pie pie;
@@ -61,7 +60,6 @@
      newHighlights.addAll(lineGraph.render());
      newHighlights.addAll(map.render());
      
-     //pie = new Pie(currentTable, currMonth, .40*395, new PVector(720, 500));
      newHighlights.addAll(pie.drawChart());
      
      //now unhighlight old, highlight all new

@@ -121,8 +121,7 @@
             for (TableRow row : stateCands) {
               labelList.add(row.getString("Candidate") + ", " + row.getString(selectedMonth));
               hiList.add(row.getInt("ID"));
-            }
-            
+            } 
           }
           
           for (TableRow row : stateCands) {

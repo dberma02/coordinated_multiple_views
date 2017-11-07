@@ -15,7 +15,6 @@
   private float chartX, chartY;
   private float chartWidth, chartHeight;
   private float offset;
-  private ArrayList<Candidate> candidates;
   private float chartBottom;
   private float pointDist;
   private Table table;
@@ -38,17 +37,13 @@
 
     
     chartX = xPos;
-  //  topY = yPos + offset;
     chartY = yPos;
 
     chartWidth = canvasWidth - offset*2;
     chartHeight = canvasHeight - offset*2.5;
-  //  this.candidates = candidates;
     this.table = table;
     
     pointDist = (chartWidth/NUM_MONTHS)/2;
-    //println("chartWidth: ", chartWidth, "rowCount: ", table.getRowCount(),
-    //        "pointDist: ", pointDist);
     chartBottom = yPos + chartHeight + offset;
     
     

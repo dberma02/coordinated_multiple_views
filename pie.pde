@@ -24,12 +24,10 @@ public class Pie {
     this.bigR = rad;
     this.smallR = rad * .7;
     this.center = center;
-  //  this.bigAngles = setAngles();
+    
     setTotal();
-   // println(total);
     isPie = true;
-     //r = min(width, height) * 0.4;
-     bigR = rad;
+    bigR = rad;
     donutR = 0;
     textFont(createFont("Arial", height / 60 + 4, true));
   }
@@ -81,9 +79,9 @@ public class Pie {
      // ellipse(center.x, center.y, donutR, donutR);
     } else {
       drawChunk(0, bigR, "Republican", repC);
-      drawChunk(0, bigR, "Democrat", demC); //<>//
+      drawChunk(0, bigR, "Democrat", demC);
       drawChunk(0, bigR, "Other", othC);
-    }
+    } //<>//
     
     return hiList; 
   }

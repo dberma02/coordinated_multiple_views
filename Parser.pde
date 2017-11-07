@@ -6,8 +6,6 @@
  
  
  class Parser {
- 
-   ArrayList<Candidate> candidates;
    String[] lines;
    
    Table table;
@@ -19,6 +17,4 @@
    public Table getData() {
      return table;
    }
-   
-   
  }
