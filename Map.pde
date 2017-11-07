@@ -125,6 +125,13 @@
             
           }
           
+          for (TableRow row : stateCands) {
+            if (row.getString("Highlight").equals("true")) {
+              squareColor = makeHighlightC(squareColor);
+              triangleColor = makeHighlightC(triangleColor);
+            }
+          }          
+          
           if (hasSelectedState) { 
             if (selectedState == states[i*12 + j]) {
               squareColor = makeHighlightC(squareColor);
@@ -208,10 +215,11 @@
       fill(255);
       stroke(0);
       int i = 0;
-      rect(63*4-90, -10 + 63*2, 180, 5+10*labelList.size());
+      rect(90, 80, 180, 5+10*labelList.size());
       fill(0);
+      textSize(8);
       for (String label : labelList) {
-        text(label, 63*4, 63*2 + i*10);
+        text(label, 180, 90 + i*10);
         i++;
       }
       stroke(0);
