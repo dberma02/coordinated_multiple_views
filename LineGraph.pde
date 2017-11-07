@@ -249,15 +249,18 @@
     
     if(!noneHighlighted()) {
       for (TableRow row : table.findRows("true","Highlight")) {
-        color lineColor = setColor(row);
-        color highlightColor = makeHighlightC(lineColor);
+        //color lineColor = setColor(row);
+        //color highlightColor = makeHighlightC(lineColor);
+        color highlightColor = color(230);
         drawCandidate(row, START_MONTH_COL + selectedMonthIndex, highlightColor);
       }
      } else {
     
       for (TableRow row : table.findRows("true","Highlight")) {
-        color lineColor = setColor(row);
-        color highlightColor = makeHighlightC(lineColor);
+        //color lineColor = setColor(row);
+        //color highlightColor = makeHighlightC(lineColor);
+        color highlightColor = color(0);
+        stroke(230);
         drawCandidate(row, START_MONTH_COL + selectedMonthIndex, highlightColor);
       }
      // for (TableRow row : table.findRows("false","Highlight")) {
