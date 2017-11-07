@@ -200,7 +200,7 @@
       if (i == START_MONTH_COL + NUM_MONTHS-2) {
         ellipse(rightPointX + pointDist/2, rightPointY, 0.015*chartWidth, 0.015*chartWidth);
         if (highlight(rightPointX + pointDist/2, rightPointY, 0.015*chartWidth)) {  
-          labelList.add(row.getString("Candidate") + ", " + row.getString(i));
+          labelList.add(row.getString("Candidate") + ", " + row.getString(i + 1));
           hlight = true;
         }
       }
@@ -248,28 +248,27 @@
     //second for loop so highlighted lines are drawn on top of others 
     
     if(noneHighlighted()) {
+      // this is how the lines are rendered if nothing is highlighted
       for (TableRow row : table.findRows("true","Highlight")) {
         color lineColor = setColor(row);
         color highlightColor = makeHighlightC(lineColor);
-        //color highlightColor = color(100);
-        //stroke(100);
 
         drawCandidate(row, START_MONTH_COL + selectedMonthIndex, highlightColor);
       }
      } else {
     
+      //if a line is highlighted, draw all lines darker than normal
       for (TableRow row : table.rows()) {
-        stroke(200);
         color lineColor = setColor(row);
         color highlightColor = darkenC(lineColor);
         drawCandidate(row, START_MONTH_COL + NUM_MONTHS-1, highlightColor);
       }
 
+      //draw highlighted lines on top of darkened ones
       for (TableRow row : table.findRows("true","Highlight")) {
         color lineColor = setColor(row);
         color highlightColor = makeHighlightC(lineColor);
         //color highlightColor = color(0);
-        stroke(230);
         drawCandidate(row, START_MONTH_COL + selectedMonthIndex, highlightColor);
       }
   
@@ -307,7 +306,7 @@
     float red = red(c);
     float green = green(c);
     float blue = blue(c);
-    float sclr = 1.2;
+    float sclr = 1.4;
     return color(red/sclr, green/sclr, blue/sclr);
   }
   
