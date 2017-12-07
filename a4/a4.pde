@@ -23,7 +23,6 @@
 
  void setup() {
    size(950,700);
-   pixelDensity(displayDensity());
 
    parser = new Parser("candidates.csv");
    masterTable = parser.getData();
