@@ -1,7 +1,7 @@
 # Coordinated Multiple Views Visualization
-Visualize 2016 presidential primary campaign contributions with a coordinated
+We visualized 2016 presidential primary campaign contributions with a coordinated
 multiple views visualization written in Processing3. The visualization includes
-a line graph, pie chart, and cartogram which each emphasize a different aspect
+a line graph, pie chart, and cartogram each of which emphasizes a different aspect
 of the data. Actions such as highlight on hover and click to filter coordinate
 accross all three visualizations.
 
@@ -13,12 +13,12 @@ in the pie chart, and highlights the candidate's state of residence in the
 cartogram.
 
 ## Pie Chart
-The pie chart shows the proportion of donations that each candidate has received.
+The pie chart shows the proportion of total donations that each candidate has received.
 Clicking on a month in the line graph filters the pie chart to show the proportion
 of total contributions made to each candidate up to the month selected. To filter
 the pie chart by candidates' state of residence, click on a state in the cartogram.
 Hovering over a slice of the chart reveals the label of the candidate
-corresponding to that slice, highlights the corresponding line in the line graph,
+corresponding to that slice, highlights the corresponding candidate's line in the line graph,
 and highlights the candidate's state of residence in the cartogram.
 
 ## Cartogram
